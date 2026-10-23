@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Prompt &amp; Deploy</title>
+  <meta name="description" content="Juego 2D para que el chapter de analistas aprenda IA: tokens, contexto, modelos, costos, pensamiento, velocidad y más.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/world.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <link rel="stylesheet" href="css/minigames.css">
+</head>
+<body data-mode="title">
+  <div id="app">
+    <header id="hud" hidden>
+      <div class="hud-stats">
+        <span class="stat" title="ByteCoins: presupuesto ficticio del juego">₿c <b id="hud-coins">0</b></span>
+        <span class="stat" title="Reputación">⭐ <b id="hud-rep">0</b></span>
+        <span class="stat zone" id="hud-zone"></span>
+      </div>
+      <button class="hud-objective" id="hud-objective" type="button" title="Ver misiones (M)"></button>
+      <div class="hud-buttons">
+        <button type="button" data-panel="quests" title="Misiones (M)">📋<span> Misiones</span></button>
+        <button type="button" data-panel="wiki" title="Wiki (G)">📚<span> Wiki</span></button>
+        <button type="button" data-panel="options" title="Opciones">⚙️</button>
+      </div>
+    </header>
+
+    <main id="viewport" aria-label="Oficina de Bytefactory">
+      <div id="world"></div>
+    </main>
+
+    <section id="dialog" hidden aria-live="polite">
+      <div class="dlg-portrait" id="dlg-portrait"></div>
+      <div class="dlg-body">
+        <div class="dlg-name" id="dlg-name"></div>
+        <div class="dlg-text" id="dlg-text"></div>
+        <div class="dlg-choices" id="dlg-choices"></div>
+        <div class="dlg-next" id="dlg-next">▼</div>
+      </div>
+    </section>
+
+    <div id="dpad" aria-hidden="true">
+      <div class="pad">
+        <button type="button" data-dir="up">▲</button>
+        <button type="button" data-dir="left">◀</button>
+        <button type="button" data-dir="right">▶</button>
+        <button type="button" data-dir="down">▼</button>
+      </div>
+      <button type="button" class="act" data-act>E</button>
+    </div>
+
+    <div id="overlay" hidden></div>
+    <div id="toasts"></div>
+
+    <section id="title-screen">
+      <div class="title-card">
+        <p class="eyebrow">Bytefactory S.A. presenta</p>
+        <h1>PROMPT<br>&amp; DEPLOY</h1>
+        <p class="tagline">Gerencia dijo "usen IA". No dijo cómo.</p>
+        <form id="title-form" autocomplete="off">
+          <label for="player-name">¿Cómo te llamás?</label>
+          <input id="player-name" maxlength="16" required placeholder="Tu nombre">
+          <fieldset class="avatar-pick">
+            <legend>Elegí tu analista</legend>
+            <label><input type="radio" name="avatar" value="a" checked><span class="avatar-prev" data-avatar="a"></span></label>
+            <label><input type="radio" name="avatar" value="b"><span class="avatar-prev" data-avatar="b"></span></label>
+            <label><input type="radio" name="avatar" value="c"><span class="avatar-prev" data-avatar="c"></span></label>
+          </fieldset>
+          <button type="submit" class="btn primary">Nueva partida</button>
+          <button type="button" class="btn" id="btn-continue" hidden>Continuar</button>
+        </form>
+        <p class="controls-hint">Mover: flechas / WASD · Interactuar: E / Enter · Misiones: M · Wiki: G</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/pd.js"></script>
+  <script src="js/data/map.js"></script>
+  <script src="js/data/characters.js"></script>
+  <script src="js/data/glossary.js"></script>
+  <script src="js/data/templates.js"></script>
+  <script src="js/data/quests.js"></script>
+  <script src="js/data/models.js"></script>
+  <script src="js/data/npcs.js"></script>
+  <script src="js/data/objects.js"></script>
+  <script src="js/engine/state.js"></script>
+  <script src="js/engine/chars.js"></script>
+  <script src="js/engine/map.js"></script>
+  <script src="js/engine/npc.js"></script>
+  <script src="js/engine/player.js"></script>
+  <script src="js/engine/input.js"></script>
+  <script src="js/systems/ui.js"></script>
+  <script src="js/systems/dialog.js"></script>
+  <script src="js/systems/hud.js"></script>
+  <script src="js/systems/quests.js"></script>
+  <script src="js/systems/panels.js"></script>
+  <script src="js/minigames/capas.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
