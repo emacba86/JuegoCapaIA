@@ -7,7 +7,9 @@
     let html = '<div class="quest-card ' + status + '">';
     html += '<div class="mod">' + esc(def.module) + '</div>';
     html += '<div class="ttl">' + esc(def.title) + (def.comingSoon ? ' 🚧' : '') + '</div>';
-    if (status === 'active' && def.objectives) {
+    if (status === 'active' && def.comingSoon) {
+      html += '<p class="wiki-locked">🚧 En construcción. Mientras tanto, podés repasar la Wiki y las plantillas.</p>';
+    } else if (status === 'active' && def.objectives) {
       let nextMarked = false;
       html += '<ul>';
       def.objectives.forEach((o) => {

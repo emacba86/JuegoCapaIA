@@ -64,6 +64,7 @@
       const id = this.current();
       if (!id) return 'Explorá la oficina';
       const def = data()[id];
+      if (def.comingSoon) return def.title + ': 🚧 en construcción';
       const q = st(id);
       const o = def.objectives.find((x) => !q.done[x.id]);
       return def.title + ': ' + (o ? o.text : '¡Completada!');

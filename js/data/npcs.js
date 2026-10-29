@@ -129,7 +129,7 @@
         if (Q().isActive('m1') && !Q().has('m1', 'cierre')) {
           const fix = { s: 'me', t: 'Mejor lo hago bien: una página son entre 1.500 y 3.000 tokens. Las 40 páginas, entre **60.000 y 120.000** de entrada, más lo que genere de salida.' };
           return [
-            { s: 'gustavo', t: '¿Y? Finanzas quiere saber cuántos tokens son el documento de requerimientos del cliente. Tiene **40 páginas**.' },
+            { s: 'gustavo', t: '¿Y? Finanzas quiere saber cuántos tokens tiene el documento de requerimientos del cliente. Tiene **40 páginas**.' },
             { choices: [
               { t: 'Son 40 tokens: uno por página.', then: [
                 { s: 'gustavo', t: '¿Cuarenta? ¡Regalado! Ya les escribo.' },
@@ -284,6 +284,9 @@
       x: 15, y: 3, dir: 'down',
       look: { skin: '#f3d2b3', hair: '#b5523b', shirt: '#f2994a', pants: '#3a3f58' },
       talk() {
+        if (Q().isDone('m1')) {
+          return [{ s: 'vale', t: 'Me dijeron que sabés cuánto "pesa" un documento en tokens. No me digas cuánto pesa mi backlog. Prefiero no saberlo.' }];
+        }
         if (Q().isActive('m1')) {
           return [{ s: 'vale', t: 'Escuché que en inglés se gastan menos tokens. ¿Y si le escribo las historias de usuario al cliente de Córdoba en inglés? …No, ¿no? No.' }];
         }
