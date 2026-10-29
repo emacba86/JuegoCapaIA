@@ -8,6 +8,51 @@
 (function () {
   const Q = () => PD.quests;
 
+  // Cierre del Módulo 0: tres propuestas por familia (arriesgada, sensata y pasiva).
+  const M0_PROPOSALS = {
+    negocio: {
+      team: 'con los analistas',
+      risky: 'Que la IA haga sola el relevamiento con el cliente.',
+      riskyReply: '¡Me encanta! …Aunque, pensándolo: si inventa algo que el cliente nunca pidió, ¿quién da la cara?',
+      sensible: 'Tareas de texto con revisión humana: minutas, historias de usuario y revisión de documentos.',
+      sensibleReply: 'Concreto, medible y sin riesgo de que el robot le hable al cliente. Me gusta.',
+      tasks: 'minutas, historias de usuario, revisión de documentos',
+    },
+    gestion: {
+      team: 'con los equipos de proyecto',
+      risky: 'Que la IA arme sola los cronogramas y se los mande a los clientes.',
+      riskyReply: '¡Me encanta! …Aunque, pensándolo: si promete una fecha imposible, ¿quién da la cara?',
+      sensible: 'Tareas de texto con revisión humana: reportes de estado, minutas de seguimiento y borradores de riesgos.',
+      sensibleReply: 'Concreto, medible y sin que el robot le prometa nada al cliente. Me gusta.',
+      tasks: 'reportes de estado, minutas de seguimiento, borradores de riesgos',
+    },
+    tecnica: {
+      team: 'con desarrollo e infraestructura',
+      risky: 'Que la IA escriba código y lo suba directo a producción.',
+      riskyReply: '¡Me encanta! …Aunque, pensándolo: si rompe algo un viernes a la noche, ¿quién lo arregla?',
+      sensible: 'Tareas con revisión humana: explicar código heredado, revisar pull requests y escribir documentación.',
+      sensibleReply: 'Concreto, medible y sin que el robot toque producción. Me gusta.',
+      tasks: 'explicar código, revisar pull requests, documentar',
+    },
+    calidad: {
+      team: 'con QA y soporte',
+      risky: 'Que la IA responda sola los reclamos de los clientes.',
+      riskyReply: '¡Me encanta! …Aunque, pensándolo: si le promete al cliente algo que no hacemos, ¿quién da la cara?',
+      sensible: 'Tareas de texto con revisión humana: casos de prueba, clasificación de tickets e informes de incidentes.',
+      sensibleReply: 'Concreto, medible y sin que el robot le conteste solo al cliente. Me gusta.',
+      tasks: 'casos de prueba, clasificación de tickets, informes de incidentes',
+    },
+    corporativa: {
+      team: 'con Recursos Humanos y Administración',
+      risky: 'Que la IA decida sola a quién contratar y qué facturas pagar.',
+      riskyReply: '¡Me encanta! …Aunque, pensándolo: si descarta a alguien por un sesgo o paga una factura duplicada, ¿quién da la cara?',
+      sensible: 'Tareas de texto con revisión humana: borradores de búsquedas, resúmenes de políticas y respuestas a proveedores, sin datos personales.',
+      sensibleReply: 'Concreto, medible y sin que el robot decida por nosotros. Me gusta.',
+      tasks: 'borradores de búsquedas, resúmenes de políticas, respuestas a proveedores',
+    },
+  };
+  const proposal = () => PD.family.pick({ $family: Object.assign({ default: M0_PROPOSALS.negocio }, M0_PROPOSALS) });
+
   PD.data.npcs = [
     {
       id: 'rosa',
@@ -77,7 +122,7 @@
                 { s: 'gustavo', t: 'Con… ¿resultados? Mirá, quiero ver algo concreto antes de fin de trimestre.' },
               ] },
             ] },
-            { s: 'gustavo', t: 'Hagamos así: averiguá de qué se trata todo esto y volvé con una propuesta de **por dónde empezar** con los analistas.' },
+            { s: 'gustavo', t: 'Hagamos así: averiguá de qué se trata todo esto y volvé con una propuesta de **por dónde empezar** ' + proposal().team + '.' },
             { s: 'gustavo', t: 'Tito, el dev senior, sabe de estas cosas. Siempre está hablando de "modelos". Yo pensé que era de moda.' },
             { fn() { Q().done('m0', 'gerente'); } },
           ];
@@ -91,20 +136,20 @@
             { s: 'me', t: 'No exactamente. Lo que vamos a usar son **LLMs**: modelos que predicen texto. Son muy buenos con el lenguaje, pero no saben nada de nuestros proyectos si no se lo damos.' },
             { s: 'gustavo', t: 'Ajá… ¿y entonces por dónde empezamos?' },
             { choices: [
-              { t: 'Que la IA haga sola el relevamiento con el cliente.', then: [
-                { s: 'gustavo', t: '¡Me encanta! …Aunque, pensándolo: si inventa algo que el cliente nunca pidió, ¿quién da la cara?' },
+              { t: proposal().risky, then: [
+                { s: 'gustavo', t: proposal().riskyReply },
                 { s: 'me', t: 'Tenés razón. Mejor arrancar con tareas de texto donde siempre revisamos nosotros.' },
               ] },
-              { t: 'Tareas de texto con revisión humana: minutas, historias de usuario y revisión de documentos.', then: [
-                { s: 'gustavo', t: 'Concreto, medible y sin riesgo de que el robot le hable al cliente. Me gusta.' },
+              { t: proposal().sensible, then: [
+                { s: 'gustavo', t: proposal().sensibleReply },
                 { fn() { PD.achievements.unlock('propuesta-sensata'); } },
               ] },
               { t: 'Esperar a que la IA mejore y ver qué hace la competencia.', then: [
                 { s: 'gustavo', t: 'Mmm, el mail decía AI-First, no AI-Después. Necesito algo para este trimestre.' },
-                { s: 'me', t: 'Entendido. Arranquemos con tareas de texto chicas y con revisión: minutas, historias de usuario, revisión de documentos.' },
+                { s: 'me', t: 'Entendido. Arranquemos con tareas chicas y con revisión: ' + proposal().tasks + '.' },
               ] },
             ] },
-            { s: 'gustavo', t: 'Perfecto. Armalo con el chapter. Ah, y cuidá los ByteCoins: **Finanzas** ya me preguntó cuánto cuesta "la IA".' },
+            { s: 'gustavo', t: 'Perfecto. Armalo con tu equipo. Ah, y cuidá los ByteCoins: **Finanzas** ya me preguntó cuánto cuesta "la IA".' },
             { end() { Q().done('m0', 'cierre'); } },
           ];
         }

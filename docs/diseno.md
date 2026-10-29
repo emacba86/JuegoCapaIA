@@ -21,6 +21,7 @@ Al crear la partida, cada persona elige su área. La historia, los conceptos y l
 - Las familias se definen en `js/data/families.js`. Las partidas guardadas antes de que existieran quedan en **Negocio**. El área se puede cambiar desde ⚙️ Opciones.
 - **Contenido por familia:** cualquier texto, lista o plantilla puede escribirse como `{ $family: { negocio: …, tecnica: …, default: … } }`. `PD.family.pick()` devuelve la variante de la familia actual; si no existe, la de `default`; si tampoco existe, nada (por ejemplo, la nota aplicada de la Wiki no se muestra).
 - **Variables en los textos:** `{name}` (jugador), `{area}` (familia) y `{members}` (roles de la familia).
+- **Estado:** los Módulos 0 y 1 tienen contenido para las cinco familias: quiz de delegación, plantilla del Módulo 0, puntos clave, notas aplicadas de la Wiki y la propuesta final a Gustavo. Los ejemplos por familia son tareas de trabajo, no definiciones: no llevan fuente bibliográfica.
 
 ## Mecánicas
 | Mecánica | Detalle |

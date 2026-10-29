@@ -29,6 +29,10 @@ PD.data.quests = {
       'Un LLM predice el siguiente token: es excelente con texto, pero no "sabe" lo que no le diste y puede inventar con seguridad.',
       { $family: {
         negocio: 'Buen punto de partida para analistas: tareas de texto (minutas, historias de usuario, revisión de documentos) siempre con revisión humana.',
+        gestion: 'Buen punto de partida para gestión: reportes de estado, minutas de seguimiento, borradores de riesgos y agendas, siempre con revisión humana.',
+        tecnica: 'Buen punto de partida para el área técnica: explicar y revisar código, documentación y runbooks, siempre verificando con tests y sin pegar credenciales.',
+        calidad: 'Buen punto de partida para calidad y servicio: casos de prueba a partir de criterios, clasificación de tickets e informes de incidentes, siempre con revisión humana.',
+        corporativa: 'Buen punto de partida para áreas corporativas: borradores de búsquedas, resúmenes de políticas y respuestas a mails, siempre con revisión humana y sin datos personales.',
         default: 'Buen punto de partida: tareas de texto (resúmenes, borradores, revisión de documentos) siempre con revisión humana.',
       } },
     ],

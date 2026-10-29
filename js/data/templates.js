@@ -1,12 +1,13 @@
 // "Plantillas para llevarte": prompts y checklists listos para usar en el trabajo real.
 // Una plantilla puede ser común o por familia ({ $family: { negocio: {…}, default: {…} } }).
 PD.data.templates = {
-  m0: { $family: { default: {
+  m0: { $family: {} },
+  m0Negocio: {
     title: '¿Le sirve la IA a esta tarea?',
     intro: 'Usá este prompt con cualquier asistente (Claude, por ejemplo) para evaluar si una tarea tuya es buena candidata para IA.',
     text:
 `Actuá como consultor/a de procesos con experiencia en IA generativa.
-Soy analista funcional en una software factory. Esta es una tarea que hago seguido:
+{ROL} Esta es una tarea que hago seguido:
 
 [DESCRIBÍ LA TAREA: qué hacés, con qué insumos, qué entregás y cada cuánto]
 
@@ -17,7 +18,7 @@ Soy analista funcional en una software factory. Esta es una tarea que hago segui
 
 Si te falta información, preguntame antes de suponer. No inventes datos del proyecto.`,
     note: 'Antes de pegar documentos reales: sacá nombres de clientes, datos personales y cualquier información confidencial (lo vemos a fondo en el módulo 10).',
-  } } },
+  },
   m1: {
     title: 'Calculadora rápida de tokens',
     intro: 'Reglas prácticas para estimar tokens y costos sin herramientas. Sirven para un orden de magnitud; para el número exacto, usá el contador de tokens del proveedor.',
@@ -51,3 +52,21 @@ Ejemplo: resumir un documento de 20 páginas en 1 página, 100 veces por mes.
     note: 'Antes de pasar un documento real por un contador de tokens online, sacá datos de clientes y cualquier información confidencial.',
   },
 };
+
+// La plantilla del Módulo 0 es la misma para todas las familias: cambia cómo se presenta
+// la persona y el cuidado extra que corresponde a cada área.
+(function () {
+  const base = PD.data.templates.m0Negocio;
+  delete PD.data.templates.m0Negocio;
+  const variant = (rol, note) => Object.assign({}, base, { text: base.text.replace('{ROL}', rol), note: note || base.note });
+  PD.data.templates.m0.$family = {
+    negocio: variant('Soy analista funcional en una software factory.'),
+    gestion: variant('Trabajo en gestión (gerencia, project management o project leading) en una software factory.'),
+    tecnica: variant('Trabajo en el área técnica (desarrollo o infraestructura y seguridad) de una software factory.',
+      'Nunca pegues credenciales, claves, tokens de acceso ni datos de producción. Sacá también nombres de clientes e información confidencial (lo vemos a fondo en el módulo 10).'),
+    calidad: variant('Trabajo en calidad y servicio (QA o service assurance) en una software factory.'),
+    corporativa: variant('Trabajo en un área corporativa (recursos humanos o administración) de una software factory.',
+      'Antes de pegar documentos reales: sacá datos personales de empleados, candidatos y proveedores (nombres, documentos, sueldos, datos bancarios) y cualquier información confidencial (lo vemos a fondo en el módulo 10).'),
+    default: variant('Trabajo en una software factory.'),
+  };
+})();
