@@ -3,9 +3,24 @@
 ## Concepto
 RPG 2D de oficina, con vista desde arriba. Sos analista funcional en **Bytefactory S.A.** Gerencia anuncia que la empresa es "AI-First" sin decir cómo ni en qué. Cada misión enseña un módulo del temario de IA.
 
-- **Público:** chapter de analistas funcionales.
+- **Público:** todas las áreas de la empresa, agrupadas en familias de roles (ver "Familias").
 - **Duración:** de 10 a 15 minutos por misión, unas 2 a 3 horas en total.
 - **Tecnología:** HTML, CSS y JavaScript sin dependencias. Funciona abriendo `index.html` (`file://`), en desktop y en mobile.
+
+## Familias
+Al crear la partida, cada persona elige su área. La historia, los conceptos y los minijuegos son comunes; lo que cambia por familia es la bajada al trabajo: ejemplos, preguntas del quiz, plantillas y la nota aplicada de la Wiki.
+
+| Familia | Roles |
+|---|---|
+| 📊 Gestión | Gerencia, Project Managers, Project Leaders |
+| 🛠️ Técnica | Desarrolladores, Infraestructura y Seguridad |
+| ✅ Calidad y servicio | Quality Assurance, Service Assurance |
+| 💼 Negocio | Analistas funcionales |
+| 🏢 Áreas corporativas | Recursos Humanos, Administración |
+
+- Las familias se definen en `js/data/families.js`. Las partidas guardadas antes de que existieran quedan en **Negocio**. El área se puede cambiar desde ⚙️ Opciones.
+- **Contenido por familia:** cualquier texto, lista o plantilla puede escribirse como `{ $family: { negocio: …, tecnica: …, default: … } }`. `PD.family.pick()` devuelve la variante de la familia actual; si no existe, la de `default`; si tampoco existe, nada (por ejemplo, la nota aplicada de la Wiki no se muestra).
+- **Variables en los textos:** `{name}` (jugador), `{area}` (familia) y `{members}` (roles de la familia).
 
 ## Mecánicas
 | Mecánica | Detalle |
@@ -59,7 +74,8 @@ docs/                 guía del facilitador y este documento
 ```
 
 ## Cómo agregar una misión
-1. **`js/data/quests.js`:** agregar la misión con `objectives`, `reward`, `template`, `keypoints` y `next`. Sacar `comingSoon`.
+1. **`js/data/quests.js`:** agregar la misión con `objectives`, `reward`, `template`, `keypoints` y `next`. Sacar `comingSoon`. Los `keypoints` que dependan del rol, por familia.
+   - Todo lo aplicado (quiz, plantilla, nota `apply` de la Wiki, ejemplos) se escribe por familia, con un `default` para las que todavía no tengan la suya.
 2. **`js/data/glossary.js`:** agregar las tarjetas con `module: 'mX'`.
 3. **`js/data/templates.js`:** agregar la plantilla para llevarte.
 4. **`js/data/npcs.js`:** agregar o modificar los diálogos de los NPCs. Usar `PD.quests.done('mX', 'objetivo')` para avanzar.

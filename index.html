@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Prompt &amp; Deploy</title>
-  <meta name="description" content="Juego 2D para que el chapter de analistas aprenda IA: tokens, contexto, modelos, costos, pensamiento, velocidad y más.">
+  <meta name="description" content="Juego 2D para que los equipos de una software factory aprendan IA: tokens, contexto, modelos, costos, pensamiento, velocidad y más.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
   <link rel="stylesheet" href="css/base.css">
@@ -64,11 +64,15 @@
           <label for="player-name">¿Cómo te llamás?</label>
           <input id="player-name" maxlength="16" required placeholder="Tu nombre">
           <fieldset class="avatar-pick">
-            <legend>Elegí tu analista</legend>
+            <legend>Elegí tu personaje</legend>
             <label><input type="radio" name="avatar" value="a" checked><span class="avatar-prev" data-avatar="a"></span></label>
             <label><input type="radio" name="avatar" value="b"><span class="avatar-prev" data-avatar="b"></span></label>
             <label><input type="radio" name="avatar" value="c"><span class="avatar-prev" data-avatar="c"></span></label>
           </fieldset>
+          <fieldset class="family-pick" id="family-pick">
+            <legend>¿De qué área sos?</legend>
+          </fieldset>
+          <p class="family-members" id="family-members" aria-live="polite"></p>
           <button type="submit" class="btn primary">Nueva partida</button>
           <button type="button" class="btn" id="btn-continue" hidden>Continuar</button>
         </form>
@@ -80,6 +84,7 @@
   <script src="js/pd.js"></script>
   <script src="js/data/map.js"></script>
   <script src="js/data/characters.js"></script>
+  <script src="js/data/families.js"></script>
   <script src="js/data/glossary.js"></script>
   <script src="js/data/templates.js"></script>
   <script src="js/data/quests.js"></script>

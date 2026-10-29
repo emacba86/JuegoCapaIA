@@ -27,7 +27,10 @@ PD.data.quests = {
     keypoints: [
       'IA ⊃ Machine Learning ⊃ Deep Learning ⊃ IA Generativa ⊃ LLM. Claude, GPT y Gemini son LLMs.',
       'Un LLM predice el siguiente token: es excelente con texto, pero no "sabe" lo que no le diste y puede inventar con seguridad.',
-      'Buen punto de partida para analistas: tareas de texto (minutas, historias de usuario, revisión de documentos) siempre con revisión humana.',
+      { $family: {
+        negocio: 'Buen punto de partida para analistas: tareas de texto (minutas, historias de usuario, revisión de documentos) siempre con revisión humana.',
+        default: 'Buen punto de partida: tareas de texto (resúmenes, borradores, revisión de documentos) siempre con revisión humana.',
+      } },
     ],
     next: 'm1',
     achievement: 'm0',

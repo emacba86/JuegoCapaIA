@@ -7,6 +7,7 @@
     version: 1,
     name: '',
     avatar: 'a',
+    family: PD.data.defaultFamily,
     x: PD.data.map.start.x,
     y: PD.data.map.start.y,
     dir: PD.data.map.start.dir,

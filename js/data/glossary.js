@@ -1,5 +1,6 @@
 // Tarjetas de la Wiki. Se desbloquean durante el juego.
-// simple: explicación con analogía · deeper: "Para profundizar" · analyst: cómo impacta en el trabajo del analista.
+// simple: explicación con analogía · deeper: "Para profundizar"
+// apply: cómo impacta en el trabajo, por familia ({ $family: { negocio: '…' } }). Si la familia no tiene la suya, no se muestra.
 PD.data.glossary = {
   bytecoins: {
     module: 'tutorial',
@@ -36,7 +37,7 @@ PD.data.glossary = {
     title: 'LLM (modelo de lenguaje grande)',
     simple: 'IA generativa entrenada con enormes cantidades de texto. Claude (Haiku, Sonnet, Opus), GPT y Gemini son LLMs.',
     deeper: 'Tienen "fecha de corte": no saben lo que pasó después de su entrenamiento ni lo que pasa en tu proyecto, salvo que se lo pases en el mensaje.',
-    analyst: 'Para el analista: un LLM no conoce tu proyecto, tu cliente ni lo que se habló en la última reunión. Todo lo que necesite saber se lo tenés que dar.',
+    apply: { $family: { negocio: 'Para el analista: un LLM no conoce tu proyecto, tu cliente ni lo que se habló en la última reunión. Todo lo que necesite saber se lo tenés que dar.' } },
   },
   'siguiente-token': {
     module: 'm0',
@@ -48,14 +49,14 @@ PD.data.glossary = {
     module: 'm0',
     title: '¿Qué le delego a un LLM?',
     simple: 'Bien: redactar, resumir, reformular, clasificar, extraer datos de texto, detectar inconsistencias, generar borradores. Con cuidado: cálculos exactos o datos que no tiene (necesita herramientas o que le pases la info). Nunca solo: decisiones con impacto sin revisión humana.',
-    analyst: 'Buenos primeros casos para analistas: resumir minutas, borradores de historias de usuario y criterios de aceptación, revisar un documento buscando ambigüedades, armar preguntas para un relevamiento.',
+    apply: { $family: { negocio: 'Buenos primeros casos para analistas: resumir minutas, borradores de historias de usuario y criterios de aceptación, revisar un documento buscando ambigüedades, armar preguntas para un relevamiento.' } },
   },
   token: {
     module: 'm1',
     title: 'Token',
     simple: 'El pedacito de texto con el que trabaja un LLM: una palabra entera, parte de una palabra o un signo. Es como la ficha del casino: el modelo no ve letras ni palabras, ve fichas. Y todo se mide en fichas: el costo, la velocidad y cuánto texto entra.',
     deeper: 'Cuántos caracteres entran en un token depende del modelo y del idioma. Anthropic indica que, en sus modelos anteriores a Claude 4.7, un token equivale a unos 3,5 caracteres en inglés, y que los modelos más nuevos producen alrededor de un 30% más de tokens para el mismo texto. Para el número exacto, se usa el contador de tokens del proveedor.',
-    analyst: 'Para el analista: cuando alguien pregunta "cuánto cuesta la IA", la respuesta empieza por "cuántos tokens". Un documento largo o un chat eterno se pagan por su tamaño.',
+    apply: { $family: { negocio: 'Para el analista: cuando alguien pregunta "cuánto cuesta la IA", la respuesta empieza por "cuántos tokens". Un documento largo o un chat eterno se pagan por su tamaño.' } },
   },
   tokenizador: {
     module: 'm1',
@@ -68,7 +69,7 @@ PD.data.glossary = {
     title: 'Tokens e idioma',
     simple: 'Decir lo mismo en español suele usar más tokens que en inglés, porque los tokenizadores se armaron con mucho texto en inglés. También pesan más el JSON, las tablas y el código: las llaves, comillas y barras son tokens.',
     deeper: 'Hay estudios que muestran que el mismo contenido puede costar bastante más según el idioma: más tokens significa más costo, más demora y menos texto dentro del límite del modelo.',
-    analyst: 'Para el analista: si pasás una planilla como tabla o como JSON, pesa más que el mismo dato en una frase. No es grave, pero en volúmenes grandes suma.',
+    apply: { $family: { negocio: 'Para el analista: si pasás una planilla como tabla o como JSON, pesa más que el mismo dato en una frase. No es grave, pero en volúmenes grandes suma.' } },
   },
   'tokens-io': {
     module: 'm1',
@@ -81,6 +82,6 @@ PD.data.glossary = {
     title: 'Imágenes y PDFs',
     simple: 'Las capturas de pantalla, los diagramas y los PDFs también se convierten en tokens. Una imagen no es gratis por no tener texto.',
     deeper: 'Según la documentación de Anthropic, Claude mira las imágenes en bloques de 28×28 píxeles: una captura de 1.000×1.000 son unos 1.300 tokens. En un PDF, cada página usa típicamente entre 1.500 y 3.000 tokens de texto, más el costo de la página como imagen.',
-    analyst: 'Para el analista: si solo necesitás el texto de un documento, pegar el texto suele salir más barato que adjuntar el PDF entero.',
+    apply: { $family: { negocio: 'Para el analista: si solo necesitás el texto de un documento, pegar el texto suele salir más barato que adjuntar el PDF entero.' } },
   },
 };

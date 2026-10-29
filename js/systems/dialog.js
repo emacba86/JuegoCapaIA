@@ -85,7 +85,7 @@
       $('dlg-choices').innerHTML = '';
       choices = null;
 
-      const text = String(st.t).replace(/\{name\}/g, PD.state.name || '');
+      const text = PD.ui.vars(st.t);
       const segs = segments(text);
       const total = segs.reduce((a, s) => a + s.t.length, 0);
       const speed = SPEEDS[PD.state.settings.textSpeed] ?? SPEEDS.normal;

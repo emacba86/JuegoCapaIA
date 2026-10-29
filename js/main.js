@@ -53,7 +53,7 @@
         PD.save.write();
         PD.dialog.start([
           { s: 'narr', t: 'Lunes, 9:00. Bytefactory S.A., una software factory de Córdoba.' },
-          { s: 'narr', t: 'Sos {name}, analista funcional. Llegás con el mate en la mano y notás algo raro: todos miran el celular con cara de preocupación.' },
+          { s: 'narr', t: 'Sos {name}, de **{area}** ({members}). Llegás con el mate en la mano y notás algo raro: todos miran el celular con cara de preocupación.' },
           { s: 'narr', t: 'Caminá con las **flechas** o **WASD** y hablá con **E**. Empezá saludando a **Rosa**, en el mostrador de recepción.' },
         ]);
       }
@@ -87,6 +87,22 @@
       el.appendChild(PD.makeChar(PD.data.avatars[el.dataset.avatar]));
     });
 
+    // Familias: al elegir una, se muestran los roles que la integran.
+    const familyPick = document.getElementById('family-pick');
+    const familyMembers = document.getElementById('family-members');
+    Object.entries(PD.data.families).forEach(([id, f]) => {
+      const label = document.createElement('label');
+      label.innerHTML = '<input type="radio" name="family" value="' + id + '"' + (id === PD.data.defaultFamily ? ' checked' : '') + '>' +
+        '<span>' + f.icon + ' ' + PD.ui.esc(f.name) + '</span>';
+      familyPick.appendChild(label);
+    });
+    const showMembers = () => {
+      const id = form.querySelector('input[name="family"]:checked').value;
+      familyMembers.innerHTML = '<strong>' + PD.ui.esc(PD.data.families[id].name) + '</strong> · ' + PD.ui.esc(PD.family.members(id));
+    };
+    familyPick.addEventListener('change', showMembers);
+    showMembers();
+
     if (PD.save.has() && PD.save.load()) {
       btnContinue.hidden = false;
       btnContinue.textContent = 'Continuar como ' + PD.state.name;
@@ -98,9 +114,11 @@
       const name = nameInput.value.trim();
       if (!name) { nameInput.focus(); return; }
       const avatar = form.querySelector('input[name="avatar"]:checked').value;
+      const family = form.querySelector('input[name="family"]:checked').value;
       PD.save.reset();
       PD.state.name = name;
       PD.state.avatar = avatar;
+      PD.state.family = family;
       PD.game.begin(true);
     });
 

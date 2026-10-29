@@ -1,6 +1,6 @@
 // Desafío del Módulo 0: "Las capas de la IA".
 // Parte 1: ordenar las capas de la más amplia a la más específica.
-// Parte 2: quiz "¿Le delego esto a un LLM?" con tareas reales de analistas.
+// Parte 2: quiz "¿Le delego esto a un LLM?" con tareas reales de cada familia.
 (function () {
   const COST = 10; // ₿c por error
 
@@ -18,7 +18,8 @@
   ];
 
   const OPTS = ['Sí, es un buen caso', 'Solo con ayuda (herramientas o datos que le pase)', 'No: no puede saberlo'];
-  const QUIZ = [
+  // Por familia. Mientras una familia no tenga el suyo, usa el de "default" (hoy, el de analistas).
+  const QUIZ_BY_FAMILY = { $family: { default: [
     { q: 'Resumir la minuta de una reunión de relevamiento de una hora.', hint: 'Le pegás la transcripción o tus notas.',
       a: 0, why: 'Resumir texto que le das es uno de sus puntos fuertes. Igual, revisá que no se haya perdido ninguna decisión importante.' },
     { q: 'Sumar el total exacto de horas de 300 tickets exportados del Jira.',
@@ -29,7 +30,7 @@
       a: 2, why: 'No estuvo ahí y no tiene esa información. Si "responde" igual, está inventando: eso es una alucinación.' },
     { q: 'Detectar contradicciones entre dos versiones de un documento de requerimientos.',
       a: 0, why: 'Comparar textos y señalar inconsistencias o ambigüedades es un excelente caso de uso para un analista.' },
-  ];
+  ] } };
 
   const shuffle = (arr) => {
     const a = arr.slice();
@@ -92,6 +93,7 @@
     },
 
     partQuiz(game) {
+      const QUIZ = PD.family.pick(QUIZ_BY_FAMILY);
       let i = 0;
       const m = PD.ui.modal({
         title: '🤔 Desafío: ¿Se lo delego a un LLM? (2/2)',
@@ -104,7 +106,7 @@
 
       const render = () => {
         const item = QUIZ[i];
-        $('#qz-prog').textContent = 'Pregunta ' + (i + 1) + ' de ' + QUIZ.length + ' · Sos analista y tenés que…';
+        $('#qz-prog').textContent = 'Pregunta ' + (i + 1) + ' de ' + QUIZ.length + ' · En tu trabajo tenés que…';
         $('#qz-q').innerHTML = PD.ui.esc(item.q) + (item.hint ? '<small>' + PD.ui.esc(item.hint) + '</small>' : '');
         $('#qz-fb').className = 'mg-feedback';
         $('#qz-fb').textContent = '';

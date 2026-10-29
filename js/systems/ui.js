@@ -3,12 +3,18 @@
   let current = null;
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  // Formato mínimo para textos del juego: **negrita** y {name}.
-  const fmt = (s) => esc(String(s).replace(/\{name\}/g, PD.state.name || ''))
+  // Variables de los textos del juego: {name} (jugador), {area} (familia) y {members} (roles de la familia).
+  const vars = (s) => String(s)
+    .replace(/\{name\}/g, PD.state.name || '')
+    .replace(/\{area\}/g, PD.family.get().name)
+    .replace(/\{members\}/g, PD.family.members());
+  // Formato mínimo para textos del juego: **negrita** y variables.
+  const fmt = (s) => esc(vars(s))
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
   PD.ui = {
     esc,
+    vars,
     fmt,
 
     /**

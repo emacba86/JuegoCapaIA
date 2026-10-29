@@ -18,7 +18,7 @@
       });
       html += '</ul>';
     }
-    if (status === 'done' && PD.data.templates[id]) {
+    if (status === 'done' && PD.family.pick(PD.data.templates[id])) {
       html += '<div class="row"><span class="mod">Plantilla disponible</span>' +
         '<button type="button" class="btn" data-template="' + id + '">📋 Ver plantilla</button></div>';
     }
@@ -71,7 +71,8 @@
         html += '<div class="wiki-group"><h3>' + esc(label(mod)) + '</h3>';
         unlocked.forEach(([, c]) => {
           html += '<article class="wiki-card"><h4>' + esc(c.title) + '</h4><p>' + fmt(c.simple) + '</p>';
-          if (c.analyst) html += '<div class="note">🧑‍💼 ' + fmt(c.analyst) + '</div>';
+          const apply = PD.family.pick(c.apply);
+          if (apply) html += '<div class="note">' + PD.family.get().icon + ' ' + fmt(apply) + '</div>';
           if (c.deeper) html += '<details><summary>Para profundizar</summary><p>' + fmt(c.deeper) + '</p></details>';
           html += '</article>';
         });
@@ -92,6 +93,12 @@
         '</select></div>' +
         '<div class="opt-row"><label for="opt-motion">Reducir animaciones</label>' +
         '<input type="checkbox" id="opt-motion"' + (s.reducedMotion ? ' checked' : '') + '></div>' +
+        '<div class="opt-row"><label for="opt-family">Área</label>' +
+        '<select id="opt-family">' +
+        Object.entries(PD.data.families)
+          .map(([v, f]) => '<option value="' + v + '"' + (PD.family.id() === v ? ' selected' : '') + '>' + f.icon + ' ' + esc(f.name) + '</option>').join('') +
+        '</select></div>' +
+        '<p class="family-members" id="opt-members">' + esc(PD.family.members()) + '</p>' +
         '<div class="opt-row"><span>Jugando como <b>' + esc(PD.state.name) + '</b></span></div>' +
         '<p class="note">Los precios en ByteCoins son ficticios pero proporcionales a los reales. Proyecto educativo interno, sin afiliación con los proveedores de IA mencionados.</p>';
 
@@ -105,6 +112,11 @@
       });
       m.body.querySelector('#opt-speed').addEventListener('change', (e) => {
         s.textSpeed = e.target.value;
+        PD.save.write();
+      });
+      m.body.querySelector('#opt-family').addEventListener('change', (e) => {
+        PD.state.family = e.target.value;
+        m.body.querySelector('#opt-members').textContent = PD.family.members();
         PD.save.write();
       });
       m.body.querySelector('#opt-motion').addEventListener('change', (e) => {
@@ -132,7 +144,8 @@
         '<div class="stats">' + esc(def.module) + '<br>' +
         (r.rep ? '+' + r.rep + ' ⭐ reputación' : '') + (r.coins ? ' · +' + r.coins + ' ₿c' : '') + '</div></div>';
       if (def.keypoints) {
-        html += '<h3>Lo que te llevás</h3><ul class="keypoints">' + def.keypoints.map((k) => '<li>' + fmt(k) + '</li>').join('') + '</ul>';
+        const points = def.keypoints.map((k) => PD.family.pick(k)).filter(Boolean);
+        html += '<h3>Lo que te llevás</h3><ul class="keypoints">' + points.map((k) => '<li>' + fmt(k) + '</li>').join('') + '</ul>';
       }
       const buttons = [];
       if (def.template) buttons.push({ text: '📋 Plantilla para llevarte', onClick: () => this.template(def.template) });
@@ -141,7 +154,7 @@
     },
 
     template(id) {
-      const t = PD.data.templates[id];
+      const t = PD.family.pick(PD.data.templates[id]);
       const html =
         '<p>' + fmt(t.intro) + '</p>' +
         '<pre class="template-pre" id="tpl-text">' + esc(t.text) + '</pre>' +

@@ -1,6 +1,6 @@
 # 🎮 Prompt & Deploy
 
-Juego 2D (HTML + CSS + JavaScript) para que el **chapter de analistas** aprenda IA jugando: tokens, contexto, modelos, costos, pensamiento, velocidad, prompting, agentes y riesgos.
+Juego 2D (HTML + CSS + JavaScript) para que **todas las áreas de la empresa** aprendan IA jugando, con contenido adaptado a cada familia de roles (Gestión, Técnica, Calidad y servicio, Negocio y Áreas corporativas): tokens, contexto, modelos, costos, pensamiento, velocidad, prompting, agentes y riesgos.
 
 > Lunes, 9:00. Gerencia manda un mail: *"A partir de hoy somos una empresa AI-First"*. No dice cómo ni en qué. Te toca averiguarlo.
 

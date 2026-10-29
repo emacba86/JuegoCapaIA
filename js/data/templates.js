@@ -1,6 +1,7 @@
 // "Plantillas para llevarte": prompts y checklists listos para usar en el trabajo real.
+// Una plantilla puede ser común o por familia ({ $family: { negocio: {…}, default: {…} } }).
 PD.data.templates = {
-  m0: {
+  m0: { $family: { default: {
     title: '¿Le sirve la IA a esta tarea?',
     intro: 'Usá este prompt con cualquier asistente (Claude, por ejemplo) para evaluar si una tarea tuya es buena candidata para IA.',
     text:
@@ -16,7 +17,7 @@ Soy analista funcional en una software factory. Esta es una tarea que hago segui
 
 Si te falta información, preguntame antes de suponer. No inventes datos del proyecto.`,
     note: 'Antes de pegar documentos reales: sacá nombres de clientes, datos personales y cualquier información confidencial (lo vemos a fondo en el módulo 10).',
-  },
+  } } },
   m1: {
     title: 'Calculadora rápida de tokens',
     intro: 'Reglas prácticas para estimar tokens y costos sin herramientas. Sirven para un orden de magnitud; para el número exacto, usá el contador de tokens del proveedor.',

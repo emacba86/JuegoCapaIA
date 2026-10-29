@@ -25,7 +25,7 @@ PD.data.map = {
 
   labels: [
     { x: 1,  y: 0, text: 'RECEPCIÓN' },
-    { x: 9,  y: 0, text: 'OPEN SPACE · ANALISTAS' },
+    { x: 9,  y: 0, text: 'OPEN SPACE' },
     { x: 20, y: 0, text: 'SALA DE REUNIONES' },
   ],
 
