@@ -1,0 +1,13 @@
+{
+  "name": "prompt-and-deploy",
+  "private": true,
+  "description": "Prompt & Deploy: the game has no dependencies; this file only holds the Playwright test suite.",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed --workers=1",
+    "test:pages": "playwright test -c playwright.pages.config.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0"
+  }
+}

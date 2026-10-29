@@ -72,6 +72,7 @@ js/engine/            estado y guardado, mapa, personajes, jugador y cámara, in
 js/systems/           diálogos, HUD, misiones/Wiki/logros/economía, paneles, modales
 js/minigames/         un archivo por desafío
 docs/                 guía del facilitador y este documento
+tests/                pruebas de Playwright (ver README) y un servidor estático mínimo
 ```
 
 ## Cómo agregar una misión
@@ -83,6 +84,7 @@ docs/                 guía del facilitador y este documento
 5. **`js/minigames/`:** crear el desafío (ver `capas.js` como modelo) e incluirlo en `index.html`.
 6. **Nuevas zonas:** ampliar `rows` y `zones` en `js/data/map.js`.
 7. **`docs/bibliografia.md`:** agregar la fuente de cada definición nueva (Wiki, diálogos y desafíos). Si algo es una analogía propia, aclararlo.
+8. **`tests/`:** agregar una prueba que juegue la misión con el teclado (ver `tests/mission1.spec.js`) y correr `npm test`.
 
 ## Convenciones de contenido
 - Español rioplatense (voseo), con tono de humor de oficina liviano.
