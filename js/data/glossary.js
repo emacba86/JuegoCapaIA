@@ -11,7 +11,7 @@ PD.data.glossary = {
     module: 'm0',
     title: 'Inteligencia Artificial (IA)',
     simple: 'El paraguas más grande: cualquier sistema que realiza tareas que asociamos a la inteligencia humana. Incluye desde reglas "si pasa X, hacé Y" hasta Claude o ChatGPT.',
-    deeper: 'El término nace en 1956. Durante décadas la IA fue mayormente "simbólica" (reglas escritas a mano). El boom actual viene de los modelos que aprenden de datos.',
+    deeper: 'El término aparece en 1955, en la propuesta del taller de Dartmouth, que se hizo en 1956. Durante décadas la IA fue mayormente "simbólica" (reglas escritas a mano). El boom actual viene de los modelos que aprenden de datos.',
   },
   ml: {
     module: 'm0',
