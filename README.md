@@ -19,12 +19,13 @@ Juego 2D (HTML + CSS + JavaScript) para que el **chapter de analistas** aprenda 
 El progreso se guarda automáticamente en el navegador.
 
 ## Estado
-- ✅ Tutorial y **Módulo 0: "El mail de Gerencia"** jugables, con desafío, Wiki, logros y plantilla para llevarte.
-- ⏳ Módulos 1 a 11 en desarrollo (ver [docs/diseno.md](docs/diseno.md)).
+- ✅ Tutorial, **Módulo 0: "El mail de Gerencia"** y **Módulo 1: "La moneda del reino"** jugables, con desafío, Wiki, logros y plantilla para llevarte.
+- ⏳ Módulos 2 a 11 en desarrollo (ver [docs/diseno.md](docs/diseno.md)).
 
 ## Documentación
 - 📘 [Guía del facilitador](docs/guia-facilitador.md): cómo usar el juego en encuentros del chapter, con preguntas de debate y actividades por módulo.
 - 🛠️ [Documento de diseño](docs/diseno.md): mecánicas, hoja de ruta, estructura del código y cómo agregar misiones.
+- 📖 [Bibliografía](docs/bibliografia.md): fuentes que respaldan cada definición del juego.
 
 ## Aviso
 Proyecto educativo interno. Los precios del juego están en **ByteCoins (₿c) ficticios**, proporcionales a los reales. Para precios reales, consultá la página oficial de cada proveedor. Sin afiliación con los proveedores de IA mencionados.

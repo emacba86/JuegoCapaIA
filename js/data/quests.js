@@ -36,8 +36,29 @@ PD.data.quests = {
   m1: {
     module: 'Módulo 1 · Tokens',
     title: 'La moneda del reino',
+    objectives: [
+      { id: 'gerente', text: 'Preguntale a Gustavo qué necesita Finanzas' },
+      { id: 'tito',    text: 'Pedile a Tito que te explique qué es un token' },
+      { id: 'reto',    text: 'Superá el desafío de Tito: "El Tokenizador"' },
+      { id: 'cierre',  text: 'Volvé con Gustavo y explicale cuánto "pesa" un documento' },
+    ],
+    reward: { rep: 1, coins: 50 },
+    template: 'm1',
+    keypoints: [
+      'Un token es un pedacito de texto: una palabra, parte de una palabra o un signo. Todo se mide en tokens: el costo, la velocidad y los límites.',
+      'El mismo contenido usa más tokens en español que en inglés, y más en JSON o tablas que en texto corrido.',
+      'Se cobran aparte los tokens de entrada (lo que mandás) y los de salida (lo que genera el modelo). La salida es más cara por token, pero muchas veces lo que más pesa es el volumen de entrada.',
+      'Las imágenes y los PDFs también se convierten en tokens.',
+    ],
+    next: 'm2',
+    achievement: 'm1',
+  },
+
+  m2: {
+    module: 'Módulo 2 · Contexto',
+    title: 'El pasante sin memoria',
     comingSoon: true,
-    objectives: [{ id: 'wip', text: 'Próximamente: Tito te va a explicar qué son los tokens' }],
+    objectives: [{ id: 'wip', text: 'Próximamente: Bruno, el pasante, te va a enseñar qué es el contexto' }],
   },
 };
 
@@ -63,4 +84,8 @@ PD.data.achievements = {
   'buen-criterio':   { title: 'Buen criterio', text: 'Respondiste todo el quiz de delegación sin errores.' },
   'm0':              { title: 'AI-First (de verdad)', text: 'Completaste el Módulo 0.' },
   'propuesta-sensata': { title: 'Propuesta sensata', text: 'Le propusiste a Gerencia un arranque realista.' },
+  'balanza':         { title: 'Balanza de precisión', text: 'Adivinaste qué texto pesa más en tokens sin errores.' },
+  'calculadora':     { title: 'Calculadora humana', text: 'Respondiste todo el quiz de tokens sin errores.' },
+  'm1':              { title: 'Moneda corriente', text: 'Completaste el Módulo 1.' },
+  'finanzas-feliz':  { title: 'Finanzas te saluda', text: 'Le explicaste a Gerencia el costo de un documento con números realistas.' },
 };

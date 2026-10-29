@@ -93,7 +93,9 @@ Que cada analista del chapter, al terminar:
 
 **Objetivo:** entender qué es un token y por qué todo (costo, velocidad, límites) se mide en tokens.
 
-**En el juego (planificado):** Tito presenta el **Tokenizador**, un minijuego para cortar frases en tokens y comparar español contra inglés, prosa contra tablas y código.
+**En el juego:** Finanzas le pregunta a Gustavo cuánto cuesta "la IA". Tito explica qué es un token y presenta el **Tokenizador**: primero hay que elegir qué texto pesa más (español contra inglés, frase contra JSON y contra tabla) y ver cómo se corta en tokens; después, un quiz para estimar tokens y costos. Al final, hay que explicarle a Gustavo cuánto pesa un documento de 40 páginas.
+
+> **Ojo:** los cortes en tokens del juego son ilustrativos (se hicieron con un tokenizador abierto). Cada modelo corta distinto; lo que se mantiene son las proporciones.
 
 **Conceptos clave:**
 - Un token es un **pedacito de texto**: una palabra, parte de una palabra o un signo.
@@ -102,7 +104,7 @@ Que cada analista del chapter, al terminar:
 - Las imágenes y los PDFs también se convierten en tokens.
 
 **Preguntas para el debate:**
-1. Si un documento de requerimientos tiene 40 páginas, ¿cuántos tokens estiman? (Orden de magnitud: unos 20.000 a 30.000).
+1. Si un documento de requerimientos tiene 40 páginas, ¿cuántos tokens estiman? (Orden de magnitud: entre 60.000 y 120.000, porque una página usa típicamente entre 1.500 y 3.000 tokens según su densidad. Como PDF, se suma la imagen de cada página. Ver [bibliografía](bibliografia.md)).
 2. ¿Por qué creen que las tablas o los JSON "pesan" distinto que el texto corrido?
 3. ¿Qué parte de su trabajo genera más texto: lo que leen o lo que escriben?
 

@@ -22,6 +22,21 @@ Fuentes que respaldan las definiciones de la Wiki, los diálogos y los desafíos
 - Jerarquía IA ⊃ ML ⊃ DL ⊃ IA Generativa ⊃ LLM: es una simplificación didáctica de consenso, no una taxonomía formal.
 - "Basura entra, basura sale": refrán de la informática, se usa como dicho popular.
 
+## Módulo 1 · Tokens
+
+| Afirmación del juego | Dónde aparece | Fuente |
+|---|---|---|
+| Un token es la unidad mínima con la que trabaja el modelo: puede ser una palabra, parte de una palabra, un signo o un byte. | Wiki: *Token*; diálogo de Tito | [5] |
+| Los tokenizadores cortan el texto en subpalabras: las palabras frecuentes quedan enteras y las raras se parten en pedazos. | Wiki: *Tokenizador* | [8] |
+| La cantidad de caracteres por token depende del modelo y del idioma. En modelos Claude anteriores a 4.7, un token equivale a unos 3,5 caracteres en inglés. Claude 4.7 y posteriores producen alrededor de 30% más tokens para el mismo texto. | Wiki: *Token*; plantilla *Calculadora rápida de tokens* | [5] |
+| El mismo contenido usa más tokens en otros idiomas que en inglés (incluido el español), y por eso cuesta más. | Wiki: *Tokens e idioma*; desafío del Tokenizador | [9], [10] |
+| Los precios se cobran por millón de tokens, separados en entrada y salida, y la salida cuesta varias veces más que la entrada. | Wiki: *Entrada y salida*; `js/data/models.js` | [11] |
+| La caché de prompts y el procesamiento por lotes (batch) abaratan el costo. | `js/data/models.js` (`cacheReadFactor`, `batchFactor`) | [11], [12], [13] |
+| Las imágenes se procesan en bloques de 28×28 píxeles: una imagen cuesta ⌈ancho/28⌉ × ⌈alto/28⌉ tokens visuales. | Wiki: *Imágenes y PDFs*; desafío del Tokenizador | [14] |
+| Cada página de un PDF usa típicamente entre 1.500 y 3.000 tokens de texto, más el costo de la imagen de la página. | Wiki: *Imágenes y PDFs*; guía del facilitador | [15] |
+
+**Nota sobre el desafío del Tokenizador:** los cortes en tokens que muestra el juego son **ilustrativos**. Cada modelo usa su propio tokenizador y el de Claude no está disponible offline. Las comparaciones relativas del desafío (qué texto usa más tokens) se verificaron con un tokenizador BPE abierto (`o200k_base`, de la librería `tiktoken`) como aproximación.
+
 ## Referencias
 
 1. McCarthy, J., Minsky, M. L., Rochester, N. y Shannon, C. E. (1955). *A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence*. Reeditado en *AI Magazine*, 27(4), 2006. <https://ojs.aaai.org/aimagazine/index.php/aimagazine/article/view/1904> · Texto original: <http://jmc.stanford.edu/articles/dartmouth.html>
@@ -32,3 +47,11 @@ Fuentes que respaldan las definiciones de la Wiki, los diálogos y los desafíos
 5. Anthropic. *Glossary* (entradas "Tokens", "Context window" y "LLM"). Documentación de Claude Platform. <https://platform.claude.com/docs/en/about-claude/glossary>
 6. Ji, Z., Lee, N., Frieske, R., Yu, T., Su, D., Xu, Y., Ishii, E., Bang, Y. J., Madotto, A. y Fung, P. (2023). Survey of Hallucination in Natural Language Generation. *ACM Computing Surveys*, 55(12), artículo 248. <https://doi.org/10.1145/3571730>
 7. Bender, E. M. y Koller, A. (2020). Climbing towards NLU: On Meaning, Form, and Understanding in the Age of Data. *Proceedings of ACL 2020*, 5185–5198. <https://doi.org/10.18653/v1/2020.acl-main.463>
+8. Sennrich, R., Haddow, B. y Birch, A. (2016). Neural Machine Translation of Rare Words with Subword Units. *Proceedings of ACL 2016*, 1715–1725. <https://doi.org/10.18653/v1/P16-1162>
+9. Petrov, A., La Malfa, E., Torr, P. H. S. y Bibi, A. (2023). Language Model Tokenizers Introduce Unfairness Between Languages. *Advances in Neural Information Processing Systems 36*. <https://arxiv.org/abs/2305.15425>
+10. Ahia, O., Kumar, S., Gonen, H., Kasai, J., Mortensen, D. R., Smith, N. A. y Tsvetkov, Y. (2023). Do All Languages Cost the Same? Tokenization in the Era of Commercial Language Models. *Proceedings of EMNLP 2023*, 9904–9923. <https://aclanthology.org/2023.emnlp-main.614/>
+11. Anthropic. *Pricing*. Documentación de Claude Platform. <https://platform.claude.com/docs/en/about-claude/pricing>
+12. Anthropic. *Prompt caching*. Documentación de Claude Platform. <https://platform.claude.com/docs/en/build-with-claude/prompt-caching>
+13. Anthropic. *Batch processing*. Documentación de Claude Platform. <https://platform.claude.com/docs/en/build-with-claude/batch-processing>
+14. Anthropic. *Vision* (sección sobre el costo de las imágenes). Documentación de Claude Platform. <https://platform.claude.com/docs/en/build-with-claude/vision>
+15. Anthropic. *PDF support* (sección "Estimate your costs"). Documentación de Claude Platform. <https://platform.claude.com/docs/en/build-with-claude/pdf-support>

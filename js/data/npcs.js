@@ -39,6 +39,12 @@
         if (Q().isActive('m0')) {
           return [{ s: 'rosa', t: 'Si buscás a Gustavo, anda por el open space, cerca de la puerta de la sala de reuniones.' }];
         }
+        if (Q().isActive('m1')) {
+          return [{ s: 'rosa', t: 'Gustavo anda nervioso: Finanzas le pidió números. Está en el open space, mirando el celular como si fuera a explotar.' }];
+        }
+        if (Q().isDone('m1')) {
+          return [{ s: 'rosa', t: 'Me contaron que alguien de Finanzas sonrió en una reunión. Dicen que fue gracias a vos.' }];
+        }
         if (Q().isDone('m0')) {
           return [{ s: 'rosa', t: 'Me dijeron que tu propuesta le gustó a Gustavo. ¡Ya te veo dando una charla en el chapter!' }];
         }
@@ -52,7 +58,7 @@
       role: 'Gerencia',
       x: 18, y: 5, dir: 'left',
       look: { skin: '#f0c8a0', hair: '#9aa0a6', shirt: '#34495e', pants: '#22272e' },
-      marker: () => Q().isActive('m0') && (!Q().has('m0', 'gerente') || (Q().has('m0', 'reto') && !Q().has('m0', 'cierre'))),
+      marker: () => ['m0', 'm1'].some((m) => Q().isActive(m) && (!Q().has(m, 'gerente') || (Q().has(m, 'reto') && !Q().has(m, 'cierre')))),
       talk() {
         if (!Q().isDone('tutorial')) {
           return [{ s: 'gustavo', t: 'Ah, {name}. Leé tu correo primero y después hablamos. Es importante. Creo.' }];
@@ -102,6 +108,52 @@
             { end() { Q().done('m0', 'cierre'); } },
           ];
         }
+        if (Q().isActive('m1') && !Q().has('m1', 'gerente')) {
+          return [
+            { s: 'gustavo', t: '{name}, tengo a **Finanzas** encima. Preguntan cuánto cuesta "la IA". Les dije que depende. Me pidieron que dependa en números.' },
+            { choices: [
+              { t: '¿Y qué dicen los proveedores?', then: [
+                { s: 'gustavo', t: 'Que se cobra por **token**. Tanto por millón de tokens. ¿Un millón de qué? Ni idea.' },
+              ] },
+              { t: '¿No se paga por usuario, como una licencia?', then: [
+                { s: 'gustavo', t: 'Eso pensé yo. Pero la factura de prueba dice "tokens". Muchos tokens.' },
+              ] },
+            ] },
+            { s: 'gustavo', t: 'Averiguá qué es un token y cuánto "pesa" un documento nuestro. Tito seguro sabe: habla de eso en el almuerzo.' },
+            { fn() { Q().done('m1', 'gerente'); } },
+          ];
+        }
+        if (Q().isActive('m1') && !Q().has('m1', 'reto')) {
+          return [{ s: 'gustavo', t: 'Hablá con Tito y traeme un número. Aunque sea aproximado. Finanzas ama los aproximados. Mentira, los odia.' }];
+        }
+        if (Q().isActive('m1') && !Q().has('m1', 'cierre')) {
+          const fix = { s: 'me', t: 'Mejor lo hago bien: una página son entre 1.500 y 3.000 tokens. Las 40 páginas, entre **60.000 y 120.000** de entrada, más lo que genere de salida.' };
+          return [
+            { s: 'gustavo', t: '¿Y? Finanzas quiere saber cuántos tokens son el documento de requerimientos del cliente. Tiene **40 páginas**.' },
+            { choices: [
+              { t: 'Son 40 tokens: uno por página.', then: [
+                { s: 'gustavo', t: '¿Cuarenta? ¡Regalado! Ya les escribo.' },
+                { s: 'me', t: 'Esperá, me equivoqué. Un token es un pedacito de texto, no una página.' },
+                fix,
+              ] },
+              { t: 'Entre 60.000 y 120.000 tokens de entrada. Más la salida, que se cobra aparte y más cara por token.', then: [
+                { s: 'gustavo', t: 'Un rango, una explicación y la letra chica. Finanzas va a llorar de emoción.' },
+                { fn() { PD.achievements.unlock('finanzas-feliz'); } },
+              ] },
+              { t: 'No se puede saber hasta que llegue la factura.', then: [
+                { s: 'gustavo', t: 'Eso no se lo puedo decir a Finanzas. Me sacan la tarjeta corporativa.' },
+                fix,
+              ] },
+            ] },
+            { s: 'gustavo', t: '¿Y si en vez de pegar el texto le mandamos el PDF con todos los diagramas? ¿Cuesta lo mismo?' },
+            { s: 'me', t: 'Más: las imágenes también son tokens. Si solo necesitamos el texto, conviene pegar el texto.' },
+            { s: 'gustavo', t: 'Anotado. Ah, Bruno, el pasante, me preguntó por qué la IA "se olvida" de lo que le dijo. Pensé que era un tema de él. Parece que no.' },
+            { end() { Q().done('m1', 'cierre'); } },
+          ];
+        }
+        if (Q().isDone('m1')) {
+          return [{ s: 'gustavo', t: 'Finanzas está contenta. Por primera vez en la historia de la empresa. No lo arruines.' }];
+        }
         if (Q().isDone('m0')) {
           return [{ s: 'gustavo', t: 'Finanzas me preguntó cuánto cuesta un "token". ¿Vos sabés qué es un token? …Yo tampoco. Averigualo.' }];
         }
@@ -116,7 +168,7 @@
       x: 11, y: 3, dir: 'down',
       look: { skin: '#d9a07a', hair: '#2b2b2b', shirt: '#1f3b2c', pants: '#2d3436' },
       accessory: '🎧',
-      marker: () => Q().isActive('m0') && Q().has('m0', 'gerente') && !Q().has('m0', 'reto'),
+      marker: () => ['m0', 'm1'].some((m) => Q().isActive(m) && Q().has(m, 'gerente') && !Q().has(m, 'reto')),
       talk() {
         const challenge = [
           { choices: [
@@ -161,10 +213,61 @@
         if (Q().isActive('m0') && Q().has('m0', 'reto')) {
           return [{ s: 'tito', t: 'Bien ahí. Ahora andá a contarle a Gustavo. Y no le prometas un robot.' }];
         }
-        if (Q().isDone('m0')) {
+        const tokenChallenge = [
+          { choices: [
+            { t: '¡Dale, el Tokenizador!', then: [
+              { end() { PD.minigames.tokens.start(() => Q().done('m1', 'reto')); } },
+            ] },
+            { t: 'Dame un minuto para repasar la Wiki.', then: [
+              { s: 'tito', t: 'Dale. Las fichas no se van a ningún lado.' },
+            ] },
+          ] },
+        ];
+
+        if (Q().isActive('m1') && Q().has('m1', 'gerente') && !Q().has('m1', 'tito')) {
           return [
-            { s: 'tito', t: 'Lo próximo que tenés que entender son los **tokens**: la moneda con la que se paga todo esto.' },
-            { s: 'sys', t: '🚧 La Misión 1 "La moneda del reino" está en construcción. ¡Pronto en tu oficina!' },
+            { s: 'tito', t: '¿Finanzas pregunta por los tokens? Era cuestión de tiempo. Te explico.' },
+            { s: 'tito', t: 'Un LLM no lee letras ni palabras: lee **tokens**, pedacitos de texto. Pensalo como las fichas del casino: el modelo solo juega con fichas.' },
+            { choices: [
+              { t: '¿Un token es una palabra?', then: [
+                { s: 'tito', t: 'A veces. Las palabras comunes suelen ser un token. Las largas o raras se parten: "anticonstitucionalmente" puede quedar en cinco pedazos.' },
+              ] },
+              { t: '¿Y por qué no cuentan letras, directamente?', then: [
+                { s: 'tito', t: 'Sería ineficiente: con piezas más grandes el modelo procesa más rápido. Y con pedazos chicos igual puede armar palabras que nunca vio. Los tokens son el punto medio.' },
+              ] },
+            ] },
+            { s: 'tito', t: 'Y acá viene lo que le importa a Finanzas: **todo se cobra en tokens**. Lo que mandás (**entrada**) y lo que el modelo genera (**salida**), por separado. La salida es más cara.' },
+            { s: 'tito', t: 'Dos detalles: en **español** gastamos más tokens que en inglés para decir lo mismo. Y las **imágenes y los PDFs** también cuentan.' },
+            { choices: [
+              { t: '¿Por qué en español se gastan más?', then: [
+                { s: 'tito', t: 'Porque los tokenizadores se armaron con muchísimo texto en inglés. Muchas palabras en inglés tienen ficha propia; las nuestras se arman con más pedazos.' },
+              ] },
+              { t: '¿Una imagen? ¡Si no tiene texto!', then: [
+                { s: 'tito', t: 'Igual se convierte en tokens. Claude la mira en cuadraditos de 28×28 píxeles: una captura de 1.000×1.000 son unos 1.300 tokens.' },
+              ] },
+            ] },
+            { fn() {
+              ['token', 'tokenizador', 'tokens-idioma', 'tokens-io', 'tokens-multimodal'].forEach((id) => PD.wiki.unlock(id, true));
+              PD.ui.toast('📚 5 tarjetas nuevas en la Wiki', 'gold');
+              Q().done('m1', 'tito');
+            } },
+            { s: 'tito', t: 'Te lo dejé en la **Wiki**. ¿Probamos tu ojo con el **Tokenizador**?' },
+            ...tokenChallenge,
+          ];
+        }
+        if (Q().isActive('m1') && Q().has('m1', 'tito') && !Q().has('m1', 'reto')) {
+          return [{ s: 'tito', t: '¿Listo para el Tokenizador?' }, ...tokenChallenge];
+        }
+        if (Q().isActive('m1') && Q().has('m1', 'reto')) {
+          return [{ s: 'tito', t: 'Bien ahí. Ahora andá con Gustavo, que Finanzas lo tiene acorralado.' }];
+        }
+        if (Q().isActive('m1')) {
+          return [{ s: 'tito', t: 'Si es por lo de Finanzas, primero hablá con Gustavo. Él tiene los detalles. Bueno, "detalles".' }];
+        }
+        if (Q().isDone('m1')) {
+          return [
+            { s: 'tito', t: 'Ya sabés qué es un token. Lo próximo es entender cuántos entran en la "cabeza" del modelo. Bruno es el ejemplo perfecto.' },
+            { s: 'sys', t: '🚧 La Misión 2 "El pasante sin memoria" está en construcción. ¡Pronto en tu oficina!' },
           ];
         }
         if (!Q().has('m0', 'gerente') && Q().isActive('m0')) {
@@ -181,6 +284,9 @@
       x: 15, y: 3, dir: 'down',
       look: { skin: '#f3d2b3', hair: '#b5523b', shirt: '#f2994a', pants: '#3a3f58' },
       talk() {
+        if (Q().isActive('m1')) {
+          return [{ s: 'vale', t: 'Escuché que en inglés se gastan menos tokens. ¿Y si le escribo las historias de usuario al cliente de Córdoba en inglés? …No, ¿no? No.' }];
+        }
         if (Q().isDone('m0')) {
           return [{ s: 'vale', t: 'Me enteré de que vas a armar algo con IA para el chapter. ¡Anotame para probar historias de usuario!' }];
         }
@@ -195,10 +301,14 @@
       x: 10, y: 6, dir: 'up',
       look: { skin: '#ffe0bd', hair: '#e2b13c', shirt: '#56ccf2', pants: '#4a5568' },
       talk() {
-        return [
+        const lines = [
           { s: 'bruno', t: '¡Hola! Perdón, ¿cómo era tu nombre? Ah, {name}, cierto. Me olvido de todo lo que me dijeron hace un rato…' },
           { s: 'narr', t: 'Algo te dice que Bruno y los LLMs tienen más en común de lo que parece. 🤔 (Módulo 2)' },
         ];
+        if (Q().isDone('m1')) {
+          lines.push({ s: 'sys', t: '🚧 La Misión 2 "El pasante sin memoria" está en construcción. ¡Pronto en tu oficina!' });
+        }
+        return lines;
       },
     },
   ];

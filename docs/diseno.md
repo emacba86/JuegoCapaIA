@@ -26,7 +26,7 @@ RPG 2D de oficina, con vista desde arriba. Sos analista funcional en **Bytefacto
 | 1. Prototipo | Mapa, movimiento, NPCs, diálogos, HUD, guardado | ✅ |
 | 2. Sistemas | Misiones, Wiki, logros, plantillas, opciones | ✅ |
 | 3. Vertical slice | Tutorial + Módulo 0 con desafío | ✅ |
-| 4. Contenido | Módulos 1 a 10 (nuevas zonas: Finanzas, Servidores, Soporte, Data center) | ⏳ |
+| 4. Contenido | Módulos 1 a 10 (nuevas zonas: Finanzas, Servidores, Soporte, Data center) | ⏳ Módulo 1 ✅ |
 | 5. Final | Módulo 11, jefe final, 3 finales, resumen exportable de resultados | ⏳ |
 | 6. Pulido | Sonido, testing con el chapter, ajustes | ⏳ |
 
@@ -34,7 +34,7 @@ RPG 2D de oficina, con vista desde arriba. Sos analista funcional en **Bytefacto
 | # | Misión | Módulo | Desafío |
 |---|---|---|---|
 | 0 | El mail de Gerencia | Panorama general | Capas de la IA + quiz de delegación ✅ |
-| 1 | La moneda del reino | Tokens | Tokenizador |
+| 1 | La moneda del reino | Tokens | Tokenizador: ¿cuál pesa más? + quiz de estimación ✅ |
 | 2 | El pasante sin memoria | Contexto | Mochila de contexto (Tetris) |
 | 3 | ¿Dónde se fue la plata? | Consumo | Auditar una factura de tokens |
 | 4 | El zoológico de modelos | Modelos | Asignar tareas a Haiku, Sonnet u Opus |
@@ -65,6 +65,7 @@ docs/                 guía del facilitador y este documento
 4. **`js/data/npcs.js`:** agregar o modificar los diálogos de los NPCs. Usar `PD.quests.done('mX', 'objetivo')` para avanzar.
 5. **`js/minigames/`:** crear el desafío (ver `capas.js` como modelo) e incluirlo en `index.html`.
 6. **Nuevas zonas:** ampliar `rows` y `zones` en `js/data/map.js`.
+7. **`docs/bibliografia.md`:** agregar la fuente de cada definición nueva (Wiki, diálogos y desafíos). Si algo es una analogía propia, aclararlo.
 
 ## Convenciones de contenido
 - Español rioplatense (voseo), con tono de humor de oficina liviano.

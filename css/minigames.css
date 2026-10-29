@@ -65,3 +65,33 @@
 .quiz-opts button:disabled { cursor: default; }
 .quiz-opts button.right { border-color: var(--ok); background: rgba(94, 224, 138, .15); }
 .quiz-opts button.wrong { border-color: var(--bad); background: rgba(255, 107, 107, .15); }
+
+/* ---------- Desafío: el Tokenizador ---------- */
+.tok-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+@media (max-width: 620px) { .tok-pair { grid-template-columns: 1fr; } }
+.tok-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  text-align: left;
+  background: var(--panel-2);
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  font-size: 15px;
+}
+.tok-card:hover:not(:disabled) { border-color: var(--accent); }
+.tok-card:disabled { cursor: default; }
+.tok-card.right { border-color: var(--ok); background: rgba(94, 224, 138, .15); }
+.tok-card.wrong { border-color: var(--bad); background: rgba(255, 107, 107, .15); }
+.tok-label { font-family: var(--pixel); font-size: 9px; color: var(--muted); }
+.tok-text { white-space: pre-wrap; line-height: 1.4; }
+.tok-chips { display: flex; flex-wrap: wrap; gap: 3px; }
+.tok-chips[hidden], .tok-count[hidden], .tok-text[hidden] { display: none; }
+.tok-chip { padding: 2px 3px; border-radius: 4px; white-space: pre; color: #0b0d14; font-size: 14px; }
+.tok-chip.c0 { background: #6fc8ff; }
+.tok-chip.c1 { background: #ffd166; }
+.tok-chip.c2 { background: #a99bff; }
+.tok-chip.c3 { background: #3ef0d0; }
+.tok-count { font-weight: 700; }
+.tok-note { font-size: 13px; }

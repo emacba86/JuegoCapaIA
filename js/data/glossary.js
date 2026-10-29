@@ -50,4 +50,37 @@ PD.data.glossary = {
     simple: 'Bien: redactar, resumir, reformular, clasificar, extraer datos de texto, detectar inconsistencias, generar borradores. Con cuidado: cálculos exactos o datos que no tiene (necesita herramientas o que le pases la info). Nunca solo: decisiones con impacto sin revisión humana.',
     analyst: 'Buenos primeros casos para analistas: resumir minutas, borradores de historias de usuario y criterios de aceptación, revisar un documento buscando ambigüedades, armar preguntas para un relevamiento.',
   },
+  token: {
+    module: 'm1',
+    title: 'Token',
+    simple: 'El pedacito de texto con el que trabaja un LLM: una palabra entera, parte de una palabra o un signo. Es como la ficha del casino: el modelo no ve letras ni palabras, ve fichas. Y todo se mide en fichas: el costo, la velocidad y cuánto texto entra.',
+    deeper: 'Cuántos caracteres entran en un token depende del modelo y del idioma. Anthropic indica que, en sus modelos anteriores a Claude 4.7, un token equivale a unos 3,5 caracteres en inglés, y que los modelos más nuevos producen alrededor de un 30% más de tokens para el mismo texto. Para el número exacto, se usa el contador de tokens del proveedor.',
+    analyst: 'Para el analista: cuando alguien pregunta "cuánto cuesta la IA", la respuesta empieza por "cuántos tokens". Un documento largo o un chat eterno se pagan por su tamaño.',
+  },
+  tokenizador: {
+    module: 'm1',
+    title: 'Tokenizador',
+    simple: 'La parte que corta el texto en tokens antes de que el modelo lo lea. Las palabras frecuentes quedan enteras; las raras o largas se parten en pedazos ("anticonstitucionalmente" puede quedar en cinco).',
+    deeper: 'La técnica más usada se basa en subpalabras: se arma un vocabulario con los pedazos de texto más frecuentes (por ejemplo, con el algoritmo BPE). Cada proveedor usa su propio tokenizador, así que el mismo texto puede dar cantidades distintas en Claude, GPT o Gemini.',
+  },
+  'tokens-idioma': {
+    module: 'm1',
+    title: 'Tokens e idioma',
+    simple: 'Decir lo mismo en español suele usar más tokens que en inglés, porque los tokenizadores se armaron con mucho texto en inglés. También pesan más el JSON, las tablas y el código: las llaves, comillas y barras son tokens.',
+    deeper: 'Hay estudios que muestran que el mismo contenido puede costar bastante más según el idioma: más tokens significa más costo, más demora y menos texto dentro del límite del modelo.',
+    analyst: 'Para el analista: si pasás una planilla como tabla o como JSON, pesa más que el mismo dato en una frase. No es grave, pero en volúmenes grandes suma.',
+  },
+  'tokens-io': {
+    module: 'm1',
+    title: 'Entrada y salida',
+    simple: 'Los tokens de **entrada** son todo lo que le mandás al modelo (tu pedido, documentos, historial). Los de **salida** son lo que genera. Se cobran aparte y la salida es varias veces más cara por token.',
+    deeper: 'Costo = tokens de entrada × precio de entrada + tokens de salida × precio de salida. Los precios se publican por millón de tokens. Ojo: aunque la salida sea más cara por token, si mandás 20 páginas para recibir un párrafo, lo que más pesa es la entrada.',
+  },
+  'tokens-multimodal': {
+    module: 'm1',
+    title: 'Imágenes y PDFs',
+    simple: 'Las capturas de pantalla, los diagramas y los PDFs también se convierten en tokens. Una imagen no es gratis por no tener texto.',
+    deeper: 'Según la documentación de Anthropic, Claude mira las imágenes en bloques de 28×28 píxeles: una captura de 1.000×1.000 son unos 1.300 tokens. En un PDF, cada página usa típicamente entre 1.500 y 3.000 tokens de texto, más el costo de la página como imagen.',
+    analyst: 'Para el analista: si solo necesitás el texto de un documento, pegar el texto suele salir más barato que adjuntar el PDF entero.',
+  },
 };
